@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAdminUser
 from .models import User
-from .serializers import MakeAdminSerializer
+from .serializers import MakeAdminSerializer, LoginSerializer, RegisterSerializer
 
 from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView
@@ -13,19 +13,16 @@ from rest_framework import status
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework_simplejwt.serializers import TokenBlacklistSerializer
 
-from .serializers import UserSerializer, LoginSerializer
-from .models import User
-
 from drf_spectacular.utils import extend_schema
 
 
 class UserList(APIView):
     permission_classes = [IsAuthenticated]
 
-    @extend_schema(responses=UserSerializer)
+    @extend_schema(responses=RegisterSerializer)
     def get(self, request):
         users = User.objects.all()
-        serializer = UserSerializer(users, many=True)
+        serializer = RegisterSerializer(users, many=True)
         return Response(serializer.data)
 
 
@@ -35,13 +32,13 @@ class RegisterAPIView(APIView):
     @extend_schema(
         request=
             { 
-            'application/json': UserSerializer, 
-            'multipart/form-data': UserSerializer  
+            'application/json': RegisterSerializer, 
+            'multipart/form-data': RegisterSerializer  
             },
-        responses=UserSerializer
+        responses=RegisterSerializer
     )
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
+        serializer = RegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
@@ -63,7 +60,7 @@ class LoginAPIView(APIView):
             'application/json': LoginSerializer, 
             'multipart/form-data': LoginSerializer  
             },
-        responses=UserSerializer
+        responses=RegisterSerializer
     )
     def post(self, request):
         email = request.data.get('email')
@@ -90,13 +87,13 @@ class LoginAPIView(APIView):
 class UserAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
-    @extend_schema(responses=UserSerializer)
+    @extend_schema(responses=RegisterSerializer)
     def get(self, request, pk=None):
         if pk:
             user = User.objects.get(pk=pk)
         else:
             user = request.user
-        serializer = UserSerializer(user)
+        serializer = RegisterSerializer(user)
         return Response(serializer.data)
 
 
