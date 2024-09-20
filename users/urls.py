@@ -7,5 +7,5 @@ urlpatterns = [
     path('register/', views.RegisterAPIView.as_view()),
     path('login/', views.LoginAPIView.as_view()),
     path('logout/', views.LogoutAPIView.as_view()),
-    path('make-admin/<str:email>', views.MakeAdminAPIView.as_view())
+    path('make-admin/', views.MakeAdminAPIView.as_view())
 ]
