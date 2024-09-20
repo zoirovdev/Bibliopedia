@@ -26,7 +26,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/schema/docs/', SpectacularSwaggerView.as_view(url_name="schema"))
+    path('api/schema/docs/', SpectacularSwaggerView.as_view(url_name="schema")),
+    path('books/', include('books.urls')),
+    path('authors/', include('authors.urls')),
+    path('quotes/', include('quotes.urls')),
+    path('comments/', include('comments.urls')),
+    path('categories/', include('categories.urls')),
 ]
 
 if settings.DEBUG:
