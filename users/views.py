@@ -117,23 +117,6 @@ class LogoutAPIView(GenericAPIView):
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-# class MakeAdminAPIView(generics.UpdateAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = MakeAdminSerializer
-#     permission_classes = [IsAdminUser]
-#     lookup_field = 'email'  # Assume email is the unique field to look up users by
-
-#     def get_queryset(self):
-#         return User.objects.all()
-
-#     def get_object(self):
-#         """
-#         Override to find the user by email (or any unique identifier).
-#         """
-#         email = self.kwargs.get('email')
-#         return self.get_queryset().filter(email=email).first()
-
 class MakeAdminAPIView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
 
