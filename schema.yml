@@ -148,6 +148,445 @@ paths:
                 type: object
                 additionalProperties: {}
           description: ''
+  /authors/detail/{id}:
+    get:
+      operationId: authors_detail_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - authors
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+          description: ''
+    put:
+      operationId: authors_detail_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - authors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthorRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+          description: ''
+    delete:
+      operationId: authors_detail_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - authors
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /authors/list/:
+    get:
+      operationId: authors_list_retrieve
+      tags:
+      - authors
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+          description: ''
+    post:
+      operationId: authors_list_create
+      tags:
+      - authors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthorRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+          description: ''
+  /books/detail/{id}:
+    get:
+      operationId: books_detail_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - books
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+    put:
+      operationId: books_detail_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - books
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BookRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+    delete:
+      operationId: books_detail_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - books
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /books/list/:
+    get:
+      operationId: books_list_retrieve
+      tags:
+      - books
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+    post:
+      operationId: books_list_create
+      tags:
+      - books
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BookRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+  /books/search/:
+    get:
+      operationId: books_search_list
+      description: Searches books based on the provided query. You can also filter
+        results by author or category. The search looks through book titles and definitions
+        using PostgreSQL's full-text search, and ranks the results by relevance.
+      summary: Search books with full-text search, filter by author or category
+      parameters:
+      - in: query
+        name: author
+        schema:
+          type: string
+        description: Filter by author's name
+      - in: query
+        name: category
+        schema:
+          type: string
+        description: Filter by category name
+      - in: query
+        name: q
+        schema:
+          type: string
+        description: Search query for full-text search across book title and definition
+      tags:
+      - books
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+          description: ''
+  /categories/detail/{id}:
+    delete:
+      operationId: categories_detail_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - categories
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /categories/list/:
+    get:
+      operationId: categories_list_retrieve
+      tags:
+      - categories
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+    post:
+      operationId: categories_list_create
+      tags:
+      - categories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+  /comments/detail/{id}:
+    put:
+      operationId: comments_detail_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - comments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+  /comments/get-comments-by-book/{id}:
+    get:
+      operationId: comments_get_comments_by_book_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - comments
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+  /comments/list/:
+    post:
+      operationId: comments_list_create
+      tags:
+      - comments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+  /quotes/detail/{id}:
+    put:
+      operationId: quotes_detail_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - quotes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuoteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/QuoteRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+          description: ''
+    delete:
+      operationId: quotes_detail_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - quotes
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /quotes/list/:
+    get:
+      operationId: quotes_list_retrieve
+      tags:
+      - quotes
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+          description: ''
+    post:
+      operationId: quotes_list_create
+      tags:
+      - quotes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuoteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/QuoteRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+          description: ''
   /users/all/:
     get:
       operationId: users_all_retrieve
@@ -197,15 +636,9 @@ paths:
       responses:
         '200':
           description: No response body
-  /users/make-admin/{email}:
+  /users/make-admin/:
     put:
       operationId: users_make_admin_update
-      parameters:
-      - in: path
-        name: email
-        schema:
-          type: string
-        required: true
       tags:
       - users
       requestBody:
@@ -213,43 +646,10 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/MakeAdminRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/MakeAdminRequest'
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/MakeAdminRequest'
         required: true
-      security:
-      - jwtAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MakeAdmin'
-          description: ''
-    patch:
-      operationId: users_make_admin_partial_update
-      parameters:
-      - in: path
-        name: email
-        schema:
-          type: string
-        required: true
-      tags:
-      - users
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedMakeAdminRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedMakeAdminRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedMakeAdminRequest'
       security:
       - jwtAuth: []
       responses:
@@ -299,6 +699,206 @@ paths:
           description: ''
 components:
   schemas:
+    Author:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        image:
+          type: string
+          format: uri
+        full_name:
+          type: string
+          maxLength: 255
+        bio:
+          type: string
+        user:
+          type: integer
+      required:
+      - bio
+      - full_name
+      - id
+      - user
+    AuthorRequest:
+      type: object
+      properties:
+        image:
+          type: string
+          format: binary
+        full_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        bio:
+          type: string
+          minLength: 1
+        user:
+          type: integer
+      required:
+      - bio
+      - full_name
+      - user
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        published_at:
+          type: string
+          format: date-time
+          readOnly: true
+        image:
+          type: string
+          format: uri
+        authors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Author'
+        languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Language'
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        title:
+          type: string
+          title: '200'
+        definition:
+          type: string
+        user:
+          type: integer
+      required:
+      - authors
+      - categories
+      - definition
+      - id
+      - languages
+      - published_at
+      - title
+      - user
+    BookRequest:
+      type: object
+      properties:
+        image:
+          type: string
+          format: binary
+        authors:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorRequest'
+        languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/LanguageRequest'
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryRequest'
+        title:
+          type: string
+          minLength: 1
+          title: '200'
+        definition:
+          type: string
+          minLength: 1
+        user:
+          type: integer
+      required:
+      - authors
+      - categories
+      - definition
+      - languages
+      - title
+      - user
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        user:
+          type: integer
+      required:
+      - id
+      - name
+      - user
+    CategoryRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        user:
+          type: integer
+      required:
+      - name
+      - user
+    Comment:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        content:
+          type: string
+        user:
+          type: integer
+        book:
+          type: integer
+      required:
+      - book
+      - content
+      - id
+      - user
+    CommentRequest:
+      type: object
+      properties:
+        content:
+          type: string
+          minLength: 1
+        user:
+          type: integer
+        book:
+          type: integer
+      required:
+      - book
+      - content
+      - user
+    Language:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        user:
+          type: integer
+      required:
+      - id
+      - name
+      - user
+    LanguageRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        user:
+          type: integer
+      required:
+      - name
+      - user
     LoginRequest:
       type: object
       properties:
@@ -338,17 +938,37 @@ components:
           type: boolean
       required:
       - email
-    PatchedMakeAdminRequest:
+    Quote:
       type: object
       properties:
-        email:
+        id:
+          type: integer
+          readOnly: true
+        content:
+          type: string
+        user:
+          type: integer
+        book:
+          type: integer
+      required:
+      - book
+      - content
+      - id
+      - user
+    QuoteRequest:
+      type: object
+      properties:
+        content:
           type: string
           minLength: 1
-          maxLength: 255
-        is_staff:
-          type: boolean
-        is_superuser:
-          type: boolean
+        user:
+          type: integer
+        book:
+          type: integer
+      required:
+      - book
+      - content
+      - user
     Register:
       type: object
       properties:

@@ -123,7 +123,9 @@ class BookSearchAPIView(APIView):
         if category_name:
             books = books.filter(categories__name__icontains=category_name)
         
-        books = books.order_by('-rank' if query else 'title')
+        if query:
+            books = books.order_by('-rank')
+            serializer = BookSerializer(books, many=True)
+            return Response(serializer.data, status=HTTP_200_OK)
         
-        serializer = BookSerializer(books, many=True)
-        return Response(serializer.data, status=HTTP_200_OK)
+        return Response(data={}, status=HTTP_200_OK)

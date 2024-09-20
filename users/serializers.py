@@ -5,7 +5,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     date_joined = serializers.DateTimeField(format="%d %b %Y", read_only=True)
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['id', 'first_name', 'last_name', 'email', 'password', 'date_joined', ]
         extra_kwargs = {
             'password':{'write_only':True},
         }

@@ -14,7 +14,7 @@ class Book(models.Model):
     user = models.ForeignKey(User, related_name='book_users', on_delete=models.CASCADE)
     authors = models.ManyToManyField(Author)
     categories = models.ManyToManyField(Category)
-    languages = models.ManyToManyField(Language)
+    language = models.ForeignKey(Language, related_name='book_languages', on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.title

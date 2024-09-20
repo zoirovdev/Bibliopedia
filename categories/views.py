@@ -8,7 +8,7 @@ from drf_spectacular.utils import extend_schema
 from .models import Category
 from .serializers import CategorySerializer
 
-class CategoryAPIView(APIView):
+class CategoryListAPIView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
 
     @extend_schema(
@@ -32,6 +32,9 @@ class CategoryAPIView(APIView):
         categories = Category.objects.all()
         serializer = CategorySerializer(categories, many=True)
         return Response(data=serializer.data, status=HTTP_200_OK)
+    
+class CategoryDetailAPIView(APIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
     
     @extend_schema(
         responses=CategorySerializer

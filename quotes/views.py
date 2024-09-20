@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from drf_spectacular.utils import extend_schema
 
 
-class QuoteAPIView(APIView):
+class QuoteListAPIView(APIView):
     permission_classes = [IsAdminUser, IsAuthenticated]
 
     @extend_schema(
@@ -27,6 +27,18 @@ class QuoteAPIView(APIView):
 
         return Response(data=serializer.data, status=HTTP_201_CREATED)
     
+
+    @extend_schema(
+        responses=QuoteSerializer
+    )
+    def get(self, request):
+        quotes = Quote.objects.order_by('?').all()
+        serializer = QuoteSerializer(quotes, many=True)
+        return Response(data=serializer.data, status=HTTP_200_OK)
+
+class QuoteDetailAPIView(APIView):
+    permission_classes = [IsAdminUser, IsAuthenticated]
+
     @extend_schema(
         request=
             { 
@@ -51,11 +63,3 @@ class QuoteAPIView(APIView):
         quote.delete()
         return Response(status=HTTP_204_NO_CONTENT)
     
-    @extend_schema(
-        responses=QuoteSerializer
-    )
-    def get(self, request):
-        quotes = Quote.objects.order_by('?').all()
-        serializer = QuoteSerializer(quotes, many=True)
-        return Response(data=serializer.data, status=HTTP_200_OK)
-

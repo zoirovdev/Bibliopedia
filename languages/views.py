@@ -8,7 +8,7 @@ from drf_spectacular.utils import extend_schema
 from .models import Language
 from .serializers import LanguageSerializer
 
-class LanguageAPIView(APIView):
+class LanguageListAPIView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
 
     @extend_schema(
@@ -34,6 +34,9 @@ class LanguageAPIView(APIView):
         serializer = LanguageSerializer(languages, many=True)
         return Response(data=serializer.data, status=HTTP_200_OK)
     
+class LanguageDetailAPIView(APIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
     @extend_schema(
         responses=LanguageSerializer
     )

@@ -8,7 +8,7 @@ from drf_spectacular.utils import extend_schema
 from .models import Comment
 from .serializers import CommentSerializer
 
-class CommentAPIView(APIView):
+class CommentListAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     @extend_schema(
@@ -26,6 +26,9 @@ class CommentAPIView(APIView):
 
         return Response(data=serializer.data, status=HTTP_201_CREATED)
     
+class CommentDetailAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
     @extend_schema(
         request=
             { 

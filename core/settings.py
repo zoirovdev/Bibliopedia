@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'comments',
     'categories',
     'languages',
+
 ]
 
 REST_FRAMEWORK = {
