@@ -42,6 +42,17 @@ class User(AbstractUser):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='custom_user_groups',  # Set a unique related_name
+        blank=True,
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='custom_user_permissions',  # Set a unique related_name
+        blank=True,
+    )
+
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
