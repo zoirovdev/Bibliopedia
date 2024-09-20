@@ -11,7 +11,7 @@ class Book(models.Model):
     published_at = models.DateTimeField()
     image = models.ImageField(upload_to='book_photos/', null=True, blank=True)
 
-    user = models.ForeignKey(User, related_name='users', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='book_users', on_delete=models.CASCADE)
     authors = models.ManyToManyField(Author)
     categories = models.ManyToManyField(Category)
     languages = models.ManyToManyField(Language)

@@ -42,6 +42,12 @@ INSTALLED_APPS = [
     'users',
     'drf_spectacular',
     'books',
+    'authors',
+    'quotes',
+    'comments',
+    'categories',
+    'languages',
+    
 ]
 
 REST_FRAMEWORK = {
